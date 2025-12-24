@@ -170,7 +170,7 @@ const HeroSection = () => {
             >
               {[
                 { value: '5+', label: 'Years Exp.' },
-                { value: '85+', label: 'Projects' },
+                { value: '25+', label: 'Projects' },
                 { value: '99%', label: 'Satisfaction' },
               ].map((stat, index) => (
                 <div
@@ -246,7 +246,7 @@ const HeroSection = () => {
                   transition={{ delay: 1.2 }}
                 >
                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                    ⚡ Next.js & Firebase
+                    ⚡ Next.js & Supabase & Firebase
                   </span>
                 </motion.div>
               </div>

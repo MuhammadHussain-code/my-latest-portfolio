@@ -40,7 +40,7 @@ const TestimonialsSection = () => {
           <iframe
             src="https://sendmea.io/wall/muhammad-hussain?embeded=true"
             width="100%"
-            height="750"
+            height="800"
             className="border-0"
             title="Client Reviews"
             loading="lazy"

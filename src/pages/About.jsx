@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import AboutHero from '@components/sections/AboutHero';
 import StatsCounter from '@components/sections/StatsCounter';
 import ClientsSection from '@components/sections/ClientsSection';

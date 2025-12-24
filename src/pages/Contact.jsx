@@ -17,7 +17,7 @@ const contactInfo = [
     icon: FiPhone,
     label: 'Phone',
     value: '+92 342 3589874',
-    href: 'tel:+923423589874',
+    href: 'http://wa.me/+923423589874',
   },
 ];
 
@@ -116,6 +116,7 @@ const Contact = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                   className="flex items-center gap-4 p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-all duration-300 hover:shadow-lg group"
+                  {...(info.label === "Phone" && { target: "_blank" })}
                 >
                   <div className="p-3 rounded-xl bg-accent-50 dark:bg-accent-500/10 text-accent-500 group-hover:scale-110 transition-transform">
                     <info.icon className="w-6 h-6" />

@@ -31,7 +31,7 @@ const AboutHero = () => {
   return (
     <section className="py-16 lg:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -43,7 +43,7 @@ const AboutHero = () => {
               {/* Decorative elements */}
               <div className="absolute -inset-4 bg-gradient-to-r from-accent-500/20 to-secondary-500/20 rounded-3xl blur-2xl opacity-60" />
               
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+              <div className="mt-16 relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src="https://lh3.googleusercontent.com/d/1KiwYpXcH6Dt79IAwZVQU8NqYEoirf0Bp=w1000"
                   alt="Muhammad Hussain"
@@ -56,8 +56,8 @@ const AboutHero = () => {
                 {/* Name badge */}
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="glass-card p-4">
-                    <h3 className="text-lg font-display text-white">Muhammad Hussain</h3>
-                    <p className="text-sm text-slate-300">Software Engineer</p>
+                    <h3 className="text-lg font-display text-slate-900 dark:text-white">Muhammad Hussain</h3>
+                    <p className="text-sm text-slate-800 dark:text-slate-400">Software Engineer</p>
                   </div>
                 </div>
               </div>

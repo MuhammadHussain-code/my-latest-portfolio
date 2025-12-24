@@ -22,7 +22,7 @@ const stats = [
     description: 'Client satisfaction rate'
   },
   { 
-    value: 85, 
+    value: 25, 
     suffix: '+', 
     label: 'Projects Completed',
     description: 'Delivered successfully'
