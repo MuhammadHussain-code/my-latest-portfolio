@@ -1,37 +1,31 @@
-import { Link } from 'react-router-dom';
-import AppBanner from '../components/shared/AppBanner';
-import ProjectsGrid from '../components/projects/ProjectsGrid';
-import { ProjectsProvider } from '../context/ProjectsContext';
-import Button from '../components/reusable/Button';
-import { useState } from 'react';
-import { projectsData } from '../data/projects';
+import { motion } from 'framer-motion';
+import HeroSection from '@components/sections/HeroSection';
+import ProjectsShowcase from '@components/sections/ProjectsShowcase';
+
+const pageVariants = {
+  initial: { opacity: 0 },
+  animate: { 
+    opacity: 1,
+    transition: { duration: 0.5, ease: 'easeOut' }
+  },
+  exit: { 
+    opacity: 0,
+    transition: { duration: 0.3 }
+  },
+};
 
 const Home = () => {
-	const [num, setnum] = useState(6);
-	
-	const handleClick=()=>{
-		setnum(projectsData.length)
-	}
-	return (
-		<div className="container mx-auto">
-			<AppBanner></AppBanner>
-
-			<ProjectsProvider>
-				<ProjectsGrid number={num}></ProjectsGrid>
-			</ProjectsProvider>
-
-			<div className="mt-8 sm:mt-10 flex justify-center">
-				<Link
-					onClick={handleClick}
-					to="/projects"
-					className="font-general-medium flex items-center px-6 py-3 rounded-lg shadow-lg hover:shadow-xl bg-indigo-500 hover:bg-indigo-600 focus:ring-1 focus:ring-indigo-900 text-white text-lg sm:text-xl duration-300"
-					aria-label="More Projects"
-				>
-					<Button title="More Projects" />
-				</Link>
-			</div>
-		</div>
-	);
+  return (
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      <HeroSection />
+      <ProjectsShowcase limit={6} showViewAll />
+    </motion.div>
+  );
 };
 
 export default Home;

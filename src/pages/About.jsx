@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
-import ProjectsShowcase from '@components/sections/ProjectsShowcase';
+import AboutHero from '@components/sections/AboutHero';
+import StatsCounter from '@components/sections/StatsCounter';
+import ClientsSection from '@components/sections/ClientsSection';
+import TestimonialsSection from '@components/sections/TestimonialsSection';
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -13,7 +16,7 @@ const pageVariants = {
   },
 };
 
-const Projects = () => {
+const About = () => {
   return (
     <motion.div
       variants={pageVariants}
@@ -22,9 +25,12 @@ const Projects = () => {
       exit="exit"
       className="pt-24"
     >
-      <ProjectsShowcase />
+      <AboutHero />
+      <StatsCounter />
+      <ClientsSection />
+      <TestimonialsSection />
     </motion.div>
   );
 };
 
-export default Projects;
+export default About;
