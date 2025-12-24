@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { FiX } from 'react-icons/fi';
+import { FiX, FiSend } from 'react-icons/fi';
 import { useForm } from 'react-hook-form';
-import emailjs from '@emailjs/browser';
+
+const EMAIL = 'muhammadhussain99100@gmail.com';
 
 const selectOptions = [
   'Web Application',
@@ -14,31 +15,18 @@ const HireMeModal = ({ onClose }) => {
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const templateParams = {
-      to_name: 'Muhammad Hussain',
-      from_name: data.name,
-      from_email: data.email,
-      message: data.message,
-      project_type: data.subject,
-    };
-
-    try {
-      await emailjs.send(
-        import.meta.env.VITE_SERVICE_ID,
-        import.meta.env.VITE_TEMPLATE_ID,
-        templateParams,
-        import.meta.env.VITE_PUBLIC_KEY
-      );
-      reset();
-      onClose();
-    } catch (error) {
-      console.error('Failed to send email:', error);
-    }
+  const onSubmit = (data) => {
+    // Create mailto link with form data
+    const subject = encodeURIComponent(`Project Inquiry: ${data.subject}`);
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\nProject Type: ${data.subject}\n\nMessage:\n${data.message}`
+    );
+    
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    onClose();
   };
 
   return (
@@ -164,12 +152,16 @@ const HireMeModal = ({ onClose }) => {
               </button>
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-primary flex-1"
               >
-                {isSubmitting ? 'Sending...' : 'Send Request'}
+                <FiSend className="w-4 h-4" />
+                Send Request
               </button>
             </div>
+            
+            <p className="text-xs text-center text-slate-500 dark:text-slate-400">
+              This will open your default email application
+            </p>
           </form>
         </motion.div>
       </div>

@@ -1,17 +1,17 @@
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi';
+import { FiMail, FiPhone, FiSend } from 'react-icons/fi';
 import { FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import { TbBrandFiverr } from 'react-icons/tb';
 import { useForm } from 'react-hook-form';
-import emailjs from '@emailjs/browser';
-import { useState } from 'react';
+
+const EMAIL = 'muhammadhussain99100@gmail.com';
 
 const contactInfo = [
   {
     icon: FiMail,
     label: 'Email',
-    value: 'muhammadhussain99100@gmail.com',
-    href: 'mailto:muhammadhussain99100@gmail.com',
+    value: EMAIL,
+    href: `mailto:${EMAIL}`,
   },
   {
     icon: FiPhone,
@@ -41,36 +41,20 @@ const pageVariants = {
 };
 
 const Contact = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const templateParams = {
-      to_name: 'Muhammad Hussain',
-      from_name: data.name,
-      from_email: data.email,
-      message: data.message,
-      project_type: data.subject,
-    };
-
-    try {
-      await emailjs.send(
-        import.meta.env.VITE_SERVICE_ID,
-        import.meta.env.VITE_TEMPLATE_ID,
-        templateParams,
-        import.meta.env.VITE_PUBLIC_KEY
-      );
-      reset();
-      setIsSubmitted(true);
-      setTimeout(() => setIsSubmitted(false), 5000);
-    } catch (error) {
-      console.error('Failed to send email:', error);
-    }
+  const onSubmit = (data) => {
+    // Create mailto link with form data
+    const subject = encodeURIComponent(data.subject || 'Portfolio Contact');
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
+    );
+    
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -201,151 +185,117 @@ const Contact = () => {
             className="lg:col-span-3"
           >
             <div className="p-8 sm:p-10 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 shadow-xl">
-              <h2 className="text-2xl font-display text-slate-900 dark:text-white mb-8">
+              <h2 className="text-2xl font-display text-slate-900 dark:text-white mb-2">
                 Send a Message
               </h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-8">
+                Fill out the form and click send to open your email client.
+              </p>
 
-              {isSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
-                >
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-500/10 flex items-center justify-center">
-                    <FiSend className="w-8 h-8 text-green-500" />
-                  </div>
-                  <h3 className="text-xl font-display text-slate-900 dark:text-white mb-2">
-                    Message Sent!
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-400">
-                    Thank you for reaching out. I'll get back to you soon!
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  {/* Name Field */}
-                  <div>
-                    <label 
-                      htmlFor="name" 
-                      className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
-                    >
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      placeholder="Your name"
-                      className="input-field"
-                      {...register('name', { required: 'Name is required' })}
-                    />
-                    {errors.name && (
-                      <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
-                    )}
-                  </div>
-
-                  {/* Email Field */}
-                  <div>
-                    <label 
-                      htmlFor="email" 
-                      className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
-                    >
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      placeholder="your@email.com"
-                      className="input-field"
-                      {...register('email', { 
-                        required: 'Email is required',
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: 'Invalid email address'
-                        }
-                      })}
-                    />
-                    {errors.email && (
-                      <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
-                    )}
-                  </div>
-
-                  {/* Subject Field */}
-                  <div>
-                    <label 
-                      htmlFor="subject" 
-                      className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
-                    >
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      id="subject"
-                      placeholder="What's this about?"
-                      className="input-field"
-                      {...register('subject', { required: 'Subject is required' })}
-                    />
-                    {errors.subject && (
-                      <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>
-                    )}
-                  </div>
-
-                  {/* Message Field */}
-                  <div>
-                    <label 
-                      htmlFor="message" 
-                      className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={5}
-                      placeholder="Tell me about your project..."
-                      className="input-field resize-none"
-                      {...register('message', { required: 'Message is required' })}
-                    />
-                    {errors.message && (
-                      <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
-                    )}
-                  </div>
-
-                  {/* Submit Button */}
-                  <motion.button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full btn-primary py-4 disabled:opacity-50 disabled:cursor-not-allowed"
-                    whileHover={{ scale: isSubmitting ? 1 : 1.01 }}
-                    whileTap={{ scale: isSubmitting ? 1 : 0.99 }}
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                {/* Name Field */}
+                <div>
+                  <label 
+                    htmlFor="name" 
+                    className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
                   >
-                    {isSubmitting ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                          <circle 
-                            className="opacity-25" 
-                            cx="12" 
-                            cy="12" 
-                            r="10" 
-                            stroke="currentColor" 
-                            strokeWidth="4"
-                            fill="none"
-                          />
-                          <path 
-                            className="opacity-75" 
-                            fill="currentColor" 
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                          />
-                        </svg>
-                        Sending...
-                      </span>
-                    ) : (
-                      <span className="flex items-center justify-center gap-2">
-                        <FiSend className="w-5 h-5" />
-                        Send Message
-                      </span>
-                    )}
-                  </motion.button>
-                </form>
-              )}
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="Your name"
+                    className="input-field"
+                    {...register('name', { required: 'Name is required' })}
+                  />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+                  )}
+                </div>
+
+                {/* Email Field */}
+                <div>
+                  <label 
+                    htmlFor="email" 
+                    className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="your@email.com"
+                    className="input-field"
+                    {...register('email', { 
+                      required: 'Email is required',
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'Invalid email address'
+                      }
+                    })}
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                  )}
+                </div>
+
+                {/* Subject Field */}
+                <div>
+                  <label 
+                    htmlFor="subject" 
+                    className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
+                  >
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    placeholder="What's this about?"
+                    className="input-field"
+                    {...register('subject', { required: 'Subject is required' })}
+                  />
+                  {errors.subject && (
+                    <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>
+                  )}
+                </div>
+
+                {/* Message Field */}
+                <div>
+                  <label 
+                    htmlFor="message" 
+                    className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={5}
+                    placeholder="Tell me about your project..."
+                    className="input-field resize-none"
+                    {...register('message', { required: 'Message is required' })}
+                  />
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <motion.button
+                  type="submit"
+                  className="w-full btn-primary py-4"
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <FiSend className="w-5 h-5" />
+                    Send Message
+                  </span>
+                </motion.button>
+                
+                <p className="text-xs text-center text-slate-500 dark:text-slate-400">
+                  This will open your default email application
+                </p>
+              </form>
             </div>
           </motion.div>
         </div>

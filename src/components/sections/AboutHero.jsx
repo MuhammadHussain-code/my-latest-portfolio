@@ -45,7 +45,7 @@ const AboutHero = () => {
               
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://drive.google.com/thumbnail?id=1KiwYpXcH6Dt79IAwZVQU8NqYEoirf0Bp&sz=w1000"
+                  src="https://lh3.googleusercontent.com/d/1KiwYpXcH6Dt79IAwZVQU8NqYEoirf0Bp=w1000"
                   alt="Muhammad Hussain"
                   className="w-full h-auto"
                 />

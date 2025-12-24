@@ -10,6 +10,7 @@ const clients = [
     icon: SiFiverr,
     iconColor: '#1DBF73',
     type: 'icon',
+    link: 'https://www.fiverr.com/hussain_code',
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ const clients = [
     icon: SiUpwork,
     iconColor: '#14A800',
     type: 'icon',
+    link: 'https://www.upwork.com/freelancers/~01a67db2f46b0d7806?viewMode=1',
   },
   {
     id: 3,
@@ -61,15 +63,8 @@ const ClientsSection = () => {
         </motion.div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {clients.map((client, index) => (
-            <motion.div
-              key={client.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
-            >
+          {clients.map((client, index) => {
+            const CardContent = (
               <div className="h-40 flex items-center justify-center p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 hover:border-accent-300 dark:hover:border-accent-500/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                 {client.type === 'icon' ? (
                   <client.icon
@@ -85,8 +80,33 @@ const ClientsSection = () => {
                   />
                 )}
               </div>
-            </motion.div>
-          ))}
+            );
+
+            return (
+              <motion.div
+                key={client.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group"
+              >
+                {client.link ? (
+                  <a
+                    href={client.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${client.name}`}
+                    className="block cursor-pointer"
+                  >
+                    {CardContent}
+                  </a>
+                ) : (
+                  CardContent
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
