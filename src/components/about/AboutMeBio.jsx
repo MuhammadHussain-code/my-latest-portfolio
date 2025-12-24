@@ -3,8 +3,8 @@ import profileImage from '../../images/img-1.jpeg';
 const AboutMeBio = () => {
 	return (
 		<div className="block sm:flex sm:gap-10 mt-10 sm:mt-20">
-			<div className="w-full sm:w-1/4 mb-7 sm:mb-0">
-				<img src={profileImage} className="rounded-lg w-96" alt="" />
+			<div className="w-full sm:w-1/4 mb-7 sm:mb-0 m-auto">
+			<img src="https://drive.google.com/thumbnail?id=1KiwYpXcH6Dt79IAwZVQU8NqYEoirf0Bp&sz=w1000" className="rounded-lg w-96" alt="" />
 			</div>
 
 			<div className="font-general-regular w-full sm:w-3/4 text-left text-ternary-dark dark:text-ternary-light">
